@@ -1,7 +1,7 @@
 sanitise <- function(folder){ #folder<-'survey_data'
   files <- list.files(folder,full.names=T)
   emails <- c()
-  for(f in files){ # f<-files[1]
+  for(f in files){ # f<-files[100]
     #read data
     csv <- read.csv(f)
     #extract email
@@ -30,8 +30,8 @@ sanitise <- function(folder){ #folder<-'survey_data'
   
   write.csv(ref,paste0(sub('/','-',folder),'-email_reference.csv'))
   
-  #swamp emails for random ids
-  for(f in files){ # f<-files[100]
+  #swap emails for random ids
+  for(f in files){ # f<-files[1]
     csv <- read.csv(f) #print(which(files==f))
     #dataset columns
     e_cols <- colnames(csv) %in% c('Email', 'Email validation', 'RecipientEmail')

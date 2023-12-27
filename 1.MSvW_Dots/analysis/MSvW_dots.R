@@ -412,7 +412,6 @@ surveyData <- function(){ #file_rgx<-all_rgxs[2]
   survey <- survey[,!grepl(paste(nonymous,collapse='|'),colnames(survey))]
   return(survey)
 }
-
 #survey <- surveyData()
 #saveRDS(survey,'rds_files/anonymised_data.rds')
 #write.csv(survey,'csv_files/anonymised_data.csv')
