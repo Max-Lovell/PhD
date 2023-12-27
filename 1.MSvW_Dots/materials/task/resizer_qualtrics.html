@@ -1,0 +1,72 @@
+<div id="resize">
+    <div id="box">
+        <div id="resizer"></div>
+    </div>
+    <div id="resize_under">
+        <p id="resize_instructions">We require the stimuli in this experiment to all be the same size, regardless of the devices they are viewed on.<br>
+            In order to achieve this, we need the measurements of something that is always the same, so we'll use a credit card.<br>
+            Click and drag the lower right corner of the box until the box is <u><i>exactly</i></u> the same size as a credit/debit card held up to the screen.</p>
+        <br>
+        <input type="button" id="resize_button" value="Continue">
+    </div>
+</div>
+<style>
+    #resize{
+        position: absolute; 
+        top: 0; 
+        left: 0;
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        z-index: 999;
+        font-family: sans-serif;
+        font-size: 2.5vmin;
+    }
+
+    #box {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 8.56cm;
+        height: 5.398cm;
+        border: 1px solid blue;
+        padding: 0px;
+        /* note aliasing on iPads fixed with this but then centers div: -webkit-transform: translateZ(0); https://stackoverflow.com/questions/17575624/how-can-i-avoid-animation-artifacts-on-my-touch-draggable-border-radius-element */
+    }
+
+    #resizer {
+        position:absolute;
+        bottom: 0;
+        right: 0;
+        width: 15px;
+        height: 15px;
+        cursor: nwse-resize;
+        background: grey;
+    }
+
+    #resize_under {
+        position: absolute;
+        text-align: center;
+        width: 80%;
+        bottom: 5%;
+        margin: 5px;
+        left: 50%;
+        transform: translate(-50%, 0%);
+        z-index: -1;
+    }
+
+    #resize_button{
+        padding: 10px 20px;
+        font-family: sans-serif;
+        font-size: 3vmin;
+    }
+
+    #resize_instructions{
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+</style>
