@@ -1,7 +1,14 @@
 # PhD
-Supplementary to: The Control and Measure of Mindfulness as a Metacognitive Practice
-Contains all methods and analysis code, and analysis data and outputs.
-Can be also downloaded at this link: https://sussex.box.com/s/ooe04yay3zfvni4n3nmdhnakka2xhcq6
+Supplementary to: The Control and Measure of Mindfulness as a Metacognitive Practice. 
 
-Emails and passwords [password] [email] or 'redacted' is used - this may cause issues in running out of the box.
-Code for sanitising emails used in Dots pilot study exlcuded due to privacy concerns.
+Contains all methods and analysis code, and analysis data and outputs. 
+Manuscripts pending a successful viva! 
+
+Emails and passwords replaced with [password] [email] or 'redacted', which may cause issues in running out of the box (only did this last!). Code for sanitising emails used in Dots pilot study exlcuded due to privacy concerns.
+
+Instructions for g-factor code here: https://github.com/Max-Lovell/gfactor .
+If running tasks, make sure URLs and file paths all point in right directions and have correct permissions on folders (755 should do it). Qualtrics tasks can be embedded into text/graphic questions using HTML view and Qualtrics JavaScript API. 
+
+Feel free to contact for help.
+
+Box download: https://sussex.box.com/s/ooe04yay3zfvni4n3nmdhnakka2xhcq6
