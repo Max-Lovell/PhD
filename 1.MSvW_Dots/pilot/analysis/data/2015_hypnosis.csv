@@ -1,0 +1,29 @@
+"","X.2","X","Time.one","Time.two","email","A1","A2","A3","A4","A5","A1o","A1s","A2o","A2s","A3o","A3s","A4o","A4s","A5s","X.1","B1","B2","B3","B4","B5","B1o","B1s","B2o1","B2o2","B2o3","B2o4","B2s1","B2s2","B3o","B3s","B4o","B4s","B5s"
+"1",1,1,"A","B","S25I949Q68MU965FETLT",1,2,2,0,0,"A",4,"B",0,"A",1,"B",1,5,NA,2,0,2,0,0,"A",3,"none","no","none","no",0,0,"A",1,"B",0,1
+"2",2,2,"A","B","N02RZB0LF46BXSX6VWQ8",4,1,1,5,0,"B",2,"B",0,"A",1,"B",0,5,NA,0,1,1,0,0,"B",0,"none","yes","none","yes",0,0,"B",0,"B",0,0
+"3",3,3,"A","B","AGNV31IAMXEP18DA78AZ",2,3,1,1,5,"A",5,"A",3,"A",4,"B",0,3,NA,4,2,5,2,0,"A",5,"none","yes","none","yes",0,0,"B",4,"B",0,2
+"4",4,4,"A","B","KCZTJXDJ8L66NQREFU9I",1,2,1,3,1,"A",5,"B",4,"A",5,"B",0,5,NA,3,2,4,4,0,"A",4,"weak","no","weak","no",4,2,"A",5,"B",0,2
+"5",5,5,"A","B","ATIVHUVO4W8LR1ZD295Q",2,3,2,1,2,"B",4,"B",0,"B",1,"B",0,0,NA,NA,NA,NA,NA,NA,"",NA,"","","","",NA,NA,"",NA,"",NA,NA
+"6",6,6,"A","B","EZZMRV9QWIJXLZJ11S7L",2,0,2,1,3,"B",3,"B",1,"A",2,"B",1,0,NA,NA,NA,NA,NA,NA,"",NA,"","","","",NA,NA,"",NA,"",NA,NA
+"7",7,7,"A","B","73ZB8DGLDGXCMYORNRCN",2,1,1,1,4,"B",3,"B",0,"B",1,"B",0,0,NA,3,1,3,2,0,"A",4,"none","YES","none","YES",0,0,"B",0,"B",0,0
+"8",8,8,"A","B","TSUXXZGQGZZT1JMX32WP",2,4,1,3,0,"B",3,"A",1,"B",2,"A",1,1,NA,3,3,1,3,1,"A",4,"none","YES","none","YES",0,0,"B",1,"B",0,2
+"9",9,9,"A","B","RCXGYGHYI960YO8A747L",3,1,2,3,3,"A",4,"B",0,"B",3,"B",0,0,NA,NA,NA,NA,NA,NA,"",NA,"","","","",NA,NA,"",NA,"",NA,NA
+"10",10,10,"A","B","HWGVWX2LXOI25UAFUCOI",5,4,4,5,3,"B",3,"B",0,"A",2,"B",0,0,NA,1,2,4,0,2,"A",5,"none","YES","none","YES",0,0,"A",4,"B",0,4
+"11",11,11,"A","B","T536D7BXFNGKQI48CBNL",1,0,1,0,0,"A",2,"A",2,"A",3,"B",0,0,NA,NA,NA,NA,NA,NA,"",NA,"","","","",NA,NA,"",NA,"",NA,NA
+"12",12,12,"B","A","6DL4MS0HPNS8T38OTHGJ",2,0,1,3,0,"B",2,"B",0,"B",0,"B",1,0,NA,2,1,2,1,0,"B",1,"none","NO","none","No",0,0,"B",3,"B",0,0
+"13",13,13,"B","A","AF67QDJVLUR1LAAT6002",4,1,1,5,0,"A",5,"A",4,"B",2,"B",0,0,NA,4,5,1,5,0,"A",4,"weak","no","strong","yes",5,2,"B",0,"B",0,3
+"14",14,14,"B","A","V0M5KXPER6IZQZ88GU7X",1,2,2,1,0,"A",4,"B",0,"B",1,"B",0,0,NA,2,1,3,1,0,"B",0,"none ","no","none","no",0,0,"B",0,"B",0,0
+"15",15,15,"B","A","DAUJJ2OGLC7HO8VH9CAG",NA,NA,NA,NA,NA,"",NA,"",NA,"",NA,"",NA,NA,NA,2,1,3,4,3,"B",2,"none","No","none","no",0,0,"A",1,"B",0,0
+"16",16,16,"B","A","XFZZ80YHAI8WUOBZ9PCB",1,2,0,1,0,"A",1,"B",0,"B",0,"B",0,0,NA,3,0,3,5,4,"B",0,"none","no","none","no",0,0,"B",0,"B",0,0
+"17",17,17,"B","A","U3KM88I2N4NTB3E2536M",4,3,4,0,0,"A",4,"B",1,"A",3,"B",1,0,NA,2,2,3,3,4,"B",3,"weak","Yes","Strong","Yes",4,2,"B",4,"B",0,3
+"18",18,18,"b","A","BKPZ0OMIN7GVCYDR2O4C",NA,NA,NA,NA,NA,"",NA,"",NA,"",NA,"",NA,NA,NA,2,3,3,1,1,"B",3,"vague ","no","weak","no",3,2,"B",4,"B",0,1
+"19",19,19,"b","A","GJ30T2MFSABC9JU1QVOW",NA,NA,NA,NA,NA,"",NA,"",NA,"",NA,"",NA,NA,NA,1,1,2,3,0,"A",2,"none","YES","none","YES",0,0,"B",2,"B",0,1
+"20",20,20,"b","A","VGXY7WOER5R3303M1PAJ",1,2,1,1,2,"B",1,"B",0,"A",0,"A",2,0,NA,3,4,4,5,3,"A",1,"none","YES","none","YES",0,0,"B",1,"B",0,0
+"21",21,21,"b","A","DUOFVIXITDCH7UCV0HNA",1,1,1,0,3,"B",4,"A",1,"A",4,"A",4,0,NA,5,4,2,0,1,"A",1,"none","NO","none","NO",0,0,"B",0,"B",0,1
+"22",22,22,"","","310JTY3L0ZXRAYD4PFAD",NA,NA,NA,NA,NA,"",NA,"",NA,"",NA,"",NA,NA,NA,NA,NA,NA,NA,NA,"",NA,"","","","",NA,NA,"",NA,"",NA,NA
+"23",23,23,"b","A","BWSFSIP2K7X09ZINVCAK",2,0,0,0,0,"A",4,"B",0,"A",3,"B",0,0,NA,0,0,0,0,0,"A",4,"none","NO","none","NO",0,0,"B",0,"B",0,0
+"24",24,24,"b","A","DRF4AIXCNL53OURXAE61",1,0,2,0,0,"A",4,"B",0,"B",0,"A",3,0,NA,4,0,5,0,0,"A",1,"none","YES","VAUGE ","YES",1,0,"B",2,"B",0,1
+"25",25,25,"b","A","Q166QLA6768YR1EF8DK6",3,2,3,1,1,"A",5,"B",0,"A",3,"B",0,0,NA,3,2,3,1,3,"A",5,"none","YES","VAUGE ","YES",1,0,"B",2,"B",0,1
+"26",26,26,"b","A","JPQB80QYFGR0PNDU8RRU",5,3,5,4,0,"A",5,"B",0,"A",5,"A",4,2,NA,5,4,2,5,5,"B",5,"none","YES","none","YES",0,0,"B",3,"B",0,0
+"27",27,27,"b","A","ZVJXXEZKYGB9C7PEFKJG",3,1,2,3,3,"B",4,"A",3,"A",3,"A",4,1,NA,3,5,5,3,4,"A",4,"STRONG","YES","STRONG","YES",5,4,"A",5,"B",2,3
+"28",28,28,"b","A","E5YQJ684JFBXJHXYJ0LH",2,2,2,1,0,"A",3,"B",1,"B",1,"B",0,0,NA,1,2,1,2,1,"A",3,"none","YES","none","YES",0,0,"B",1,"A",2,1

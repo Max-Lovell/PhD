@@ -1,0 +1,22 @@
+"","X.2","X","Time.one","Time.two","email","A1","A2","A3","A4","A5","A1o","A1s","A2o","A2s","A3o","A3s","A4o","A4s","A5s","X.1","B1","B2","B3","B4","B5","B1o","B1s","B2o1","B2o2","B2o3","B2o4","B2s1","B2s2","B3o","B3s","B4o","B4s","B5s"
+"1",1,1,"A","","P6C7YJ3FGIWXKS7DZ9AS",2,0,1,3,0,"A",4,"B",0,"B",1,"A",3,0,NA,NA,NA,NA,NA,NA,"",NA,"","","","",NA,NA,"",NA,"",NA,NA
+"2",2,2,"B","","C8V0UCZM6NC0YICFGG2X",NA,NA,NA,NA,NA,"",NA,"",NA,"",NA,"",NA,NA,NA,4,3,3,5,3,"B",2,"vague","YES","none","NO",0,1,"B",2,"B",0,1
+"3",3,3,"A","B","NX2HZX0MBPFRVC5KZZ03",3,4,2,2,5,"B",4,"B",0,"A",3,"B",0,0,NA,3,2,3,0,1,"A",4,"none","YES","none","YES",0,0,"B",3,"B",0,2
+"4",4,4,"B","A","TVY8NCT592I1HERRUQ66",3,4,2,1,0,"A",4,"A",3,"B",4,"B",0,0,NA,4,2,4,4,1,"B",3,"vague","YES","vague","YES",1,1,"B",4,"B",1,1
+"5",5,5,"A","B","Y0TNGAB16UXRADTZQHRK",2,3,2,1,2,"B",3,"A",4,"A",3,"A",4,0,NA,2,1,2,2,1,"A",4,"none","YES","vague","YES",1,0,"A",3,"B",0,0
+"6",6,6,"B","","C83J3PEE2UR0WAKG3UU3",NA,NA,NA,NA,NA,"",NA,"",NA,"",NA,"",NA,NA,NA,3,2,1,2,2,"A",1,"none","NO","none","NO",0,0,"B",1,"A",1,0
+"7",7,7,"A","B","LAVKTZ4AMHBV5MJ0MPZT",3,2,2,0,0,"A",4,"B",0,"B",5,"B",0,0,NA,3,0,4,0,0,"A",5,"vague","YES","weak","YES",3,2,"B",3,"B",1,1
+"8",8,8,"B","A","37I2Q4ILJ8877VQM7JEB",NA,NA,NA,NA,NA,"",NA,"",NA,"",NA,"",NA,NA,NA,3,0,0,0,5,"B",1,"weak","YES","none","NO",0,3,"B",0,"B",0,1
+"9",9,9,"A","","8QTYQN2OYZCMG2FA3Q7Z",3,4,2,4,1,"A",5,"B",1,"A",4,"B",1,0,NA,NA,NA,NA,NA,NA,"",NA,"","","","",NA,NA,"",NA,"",NA,NA
+"10",10,10,"B","","EIBRL89B5Y66D01Y7AI7",NA,NA,NA,NA,NA,"",NA,"",NA,"",NA,"",NA,NA,NA,4,3,3,4,1,"B",4,"none","NO","vague ","YES",1,0,"B",3,"B",1,0
+"11",11,11,"A","B","HUIMM85YK1Z760JGVHUK",4,3,4,3,2,"A",5,"B",0,"A",5,"B",2,0,NA,4,2,5,1,2,"A",4,"vague","YES","weak","YES",2,2,"B",4,"B",0,2
+"12",12,12,"B","A","TY5DNRSTGN9T8OJ4R9VJ",2,1,1,0,0,"B",4,"B",0,"B",3,"A",0,0,NA,3,1,3,1,0,"A",4,"weak","YES","vague","YES",3,1,"B",1,"B",0,0
+"13",13,13,"A","B","UA83M080E4H58LQ4DTFY",4,5,3,5,2,"A",5,"A",5,"B",4,"B",1,0,NA,4,2,5,4,0,"A",5,"weak","YES","vague","NO ",2,4,"A",1,"A",3,1
+"14",14,14,"B","A","6ZCGV4YMIGLLDQCKFJ9Q",2,3,1,5,0,"B",4,"B",1,"B",3,"B",1,0,NA,2,1,3,4,0,"B",3,"vague","YES","none ","NO ",0,2,"B",2,"B",0,NA
+"15",15,15,"A","B","RBK6N51XLDU4AMUHOGRH",3,3,3,3,2,"A",4,"A",4,"B",3,"B",0,0,NA,3,2,4,2,NA,"",NA,"","","","",NA,NA,"",NA,"",NA,NA
+"16",16,16,"B","","TEXOV307AB3CCO60M2FT",NA,NA,NA,NA,NA,"",NA,"",NA,"",NA,"",NA,NA,NA,2,0,2,0,1,"A",2,"vague","NO","weak","YES",3,2,"A",4,"B",0,3
+"17",17,17,"A","B","A66150R049K0B7UTY00B",0,1,0,2,1,"B",3,"B",0,"B",2,"B",1,5,NA,0,1,2,1,0,"A",0,"none","NO","none","NO",0,0,"A",1,"B",0,0
+"18",18,18,"B","A","67E000STDRGWGLKTPQTT",4,2,2,3,0,"A",4,"B",0,"B",3,"B",0,0,NA,3,2,4,2,2,"A",4,"none","NO","none","NO",0,0,"B",3,"B",0,2
+"19",19,19,"A","B","AWCFLKALIOY5GOOH95DZ",4,0,1,2,0,"B",2,"A",0,"A",0,"B",2,0,NA,1,0,2,0,0,"B",1,"vague","NO","vague","NO",1,1,"B",1,"B",0,0
+"20",20,20,"B","","IWAYKENHFZG2LFVGS2A4",NA,NA,NA,NA,NA,"",NA,"",NA,"",NA,"",NA,NA,NA,3,1,3,1,0,"B",4,"weak","YES","strong","YES",4,1,"B",3,"B",0,3
+"21",21,21,"A","B","C6Z6LOJQI6SA79SIC4L0",1,1,1,1,2,"A",4,"B",0,"B",2,"B",0,0,NA,4,0,4,0,0,"A",4,"none","YES","none","YES",0,0,"B",4,"B",0,0
