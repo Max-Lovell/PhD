@@ -2,7 +2,7 @@
 Supplementary to: The Control and Measure of Mindfulness as a Metacognitive Practice. 
 
 Contains all methods and analysis code, and analysis data and outputs. 
-Manuscripts pending a successful viva! 
+Manuscripts will be available pending a successful viva! 
 
 Emails and passwords replaced with [password] [email] or 'redacted', which may cause issues in running out of the box (only did this last!). Code for sanitising emails used in Dots pilot study exlcuded due to privacy concerns.
 
