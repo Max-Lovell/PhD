@@ -44,7 +44,7 @@ let task_order = ["dots","gabor","span","breath"]
     }
     task_order.push('end')
     const task_order_str = encodeURIComponent(JSON.stringify(task_order));
-    subj_URL = 'https://users.sussex.ac.uk/mel29/'+task_order[0]+'/'+task_order[0]+'.html?task_order='+task_order_str+'&sbj_id='+sbj_id+'&platform='+platform
+    subj_URL = '../'+task_order[0]+'/'+task_order[0]+'.html?task_order='+task_order_str+'&sbj_id='+sbj_id+'&platform='+platform
 })();
 
 // NATIONALITY DATALIST ------------------
@@ -296,19 +296,8 @@ function formSubmit(e){ //form.addEventListener('formdata', (e) => {})
 }
 
 function saveData(p_data, next_task){
-    const json_data = JSON.stringify({
-            file_name: sbj_id + "_survey", 
-            exp_data: p_data
-        })
-    //document.getElementById("likerts").innerHTML=json_data;
-    let xhr = new XMLHttpRequest();
-    xhr.onloadend = function() {
-        next_task(); //move on to next task - onloadend also fires on error/timeout so participants can't get stuck
-    };
-    xhr.open('POST', 'https://users.sussex.ac.uk/mel29/survey/survey.php/', true);
-    xhr.timeout = 10000; //ms - stops a hung request blocking onloadend
-    xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.send(json_data);
+    if(!ON_SUSSEX){ p_data.user_agent = navigator.userAgent; } //survey.php adds this from the request headers; import_datapipe.py hands it back to survey.php
+    postData('https://users.sussex.ac.uk/mel29/survey/survey.php/', sbj_id + "_survey", p_data, next_task); //see ../save.js
 }
 
 // PIXEL/CM ------------------------------------- wrap in own function.

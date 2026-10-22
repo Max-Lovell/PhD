@@ -282,7 +282,7 @@ function trialNumber(instr_cb){ // must be a better way to do this? e.g. resolve
             const px_cm = getQueryVariable("px_cm")
             const platform = getQueryVariable("platform")
                 //console.log(p_data)
-            const link = 'https://users.sussex.ac.uk/mel29/'+task_order[next_task]+'/'+task_order[next_task]+'.html?task_order='+task_order_str+'&sbj_id='+sbj_id+'&px_cm='+px_cm+'&platform='+platform
+            const link = '../'+task_order[next_task]+'/'+task_order[next_task]+'.html?task_order='+task_order_str+'&sbj_id='+sbj_id+'&px_cm='+px_cm+'&platform='+platform
             saveData(sbj_id,()=>{endScreen(link)})
         }
     } else if((correct.length-n_prac)%(n_trial/n_block)===0 && correct.length>n_prac && correct.length<n_trial+n_prac && breaker===true){ //
@@ -318,18 +318,7 @@ function runTrial(){
 }
 
 function saveData(sbj_id,next_task){
-    const json_data = JSON.stringify({
-            file_name: sbj_id + "_span", 
-            exp_data: p_data
-        })
-    const xhr = new XMLHttpRequest()
-    xhr.onloadend = function() {
-        next_task()
-    } //move on to next task - onloadend also fires on error/timeout so participants can't get stuck
-    xhr.open('POST', 'https://users.sussex.ac.uk/mel29/span/span.php', true)
-    xhr.timeout = 10000 //ms - stops a hung request blocking onloadend
-    xhr.setRequestHeader('Content-Type', 'application/json')
-    xhr.send(json_data)
+    postData('https://users.sussex.ac.uk/mel29/span/span.php', sbj_id + "_span", p_data, next_task) //see ../save.js
 }
 
 function endScreen(link){

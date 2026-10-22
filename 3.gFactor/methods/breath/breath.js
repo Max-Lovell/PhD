@@ -106,7 +106,7 @@ function startTimer() { //when 'start button' is clicked
                 const sbj_id = getQueryVariable("sbj_id")
                 const platform = getQueryVariable("platform")
                 const px_cm = getQueryVariable("px_cm")
-                const link = 'https://users.sussex.ac.uk/mel29/'+task_order[next_task]+'/'+task_order[next_task]+'.html?task_order='+task_order_str+'&sbj_id='+sbj_id+'&px_cm='+px_cm+'&platform='+platform
+                const link = '../'+task_order[next_task]+'/'+task_order[next_task]+'.html?task_order='+task_order_str+'&sbj_id='+sbj_id+'&px_cm='+px_cm+'&platform='+platform
                 saveData(sbj_id,()=>{endScreen(link)})
             }
         }
@@ -246,16 +246,7 @@ function colourKeys(e, arrow_col='black'){
 
 //Data----------------
 function saveData(sbj_id,next_task){
-    let json_data = JSON.stringify({
-            file_name: sbj_id + "_breath", 
-            exp_data: p_data
-        })
-    let xhr = new XMLHttpRequest()
-    xhr.onloadend = function() { next_task() } //move on to next task - onloadend also fires on error/timeout so participants can't get stuck
-    xhr.open('POST', 'https://users.sussex.ac.uk/mel29/breath/breath.php', true)
-    xhr.timeout = 10000 //ms - stops a hung request blocking onloadend
-    xhr.setRequestHeader('Content-Type', 'application/json')
-    xhr.send(json_data)
+    postData('https://users.sussex.ac.uk/mel29/breath/breath.php', sbj_id + "_breath", p_data, next_task) //see ../save.js
 }
 
 function endScreen(link){

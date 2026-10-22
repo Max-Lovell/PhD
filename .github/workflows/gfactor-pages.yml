@@ -1,0 +1,40 @@
+name: Publish g-factor study to GitHub Pages
+
+# Serves 3.gFactor/methods at https://max-lovell.github.io/PhD/ (e.g. .../survey/survey.html).
+# Data is saved via DataPipe when not on the Sussex server - see 3.gFactor/methods/save.js.
+on:
+  push:
+    branches: [main]
+    paths:
+      - '3.gFactor/methods/**'
+      - '.github/workflows/gfactor-pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v7
+
+      # PHP and .htaccess only do anything on the Sussex server, so leave them off the public site
+      - name: Copy study files
+        run: rsync -a --exclude '*.php' --exclude '.htaccess' --exclude '.DS_Store' 3.gFactor/methods/ _site/
+
+      - uses: actions/configure-pages@v6
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: _site
+      - id: deployment
+        uses: actions/deploy-pages@v5
