@@ -236,13 +236,14 @@ Qualtrics.SurveyEngine.addOnload(function () {
                 exp_data: p_data
             })
         let xhr = new XMLHttpRequest()
-        xhr.onload = function() {                     
+        xhr.onloadend = function() { //onloadend also fires on error/timeout, so participants move on even if the Sussex server is down - data is also in BCT-M embedded data
             qthis.clickNextButton() //a few backups to push to next qualtrics screen just incase.
             qthis.showNextButton()
             jQuery("#NextButton").click()
             return
         }
         xhr.open('POST', 'https://users.sussex.ac.uk/mel29/BCT-M/breath.php', true) // CHANGE THIS FOR PRE OR POST TEST ##########
+        xhr.timeout = 3000 //ms - longest a participant waits on the blank screen if the Sussex server doesn't reply
         xhr.setRequestHeader('Content-Type', 'application/json')
         xhr.send(json_data)
     }
