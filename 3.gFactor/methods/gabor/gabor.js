@@ -421,8 +421,9 @@ function saveData(sbj_id,next_task){
             exp_data: p_data
         })
     const xhr = new XMLHttpRequest()
-    xhr.onload = function() { next_task() } //move on to next task
+    xhr.onloadend = function() { next_task() } //move on to next task - onloadend also fires on error/timeout so participants can't get stuck
     xhr.open('POST', 'https://users.sussex.ac.uk/mel29/gabor/gabor.php', true)
+    xhr.timeout = 10000 //ms - stops a hung request blocking onloadend
     xhr.setRequestHeader('Content-Type', 'application/json')
     xhr.send(json_data)
 }

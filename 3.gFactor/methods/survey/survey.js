@@ -302,10 +302,11 @@ function saveData(p_data, next_task){
         })
     //document.getElementById("likerts").innerHTML=json_data;
     let xhr = new XMLHttpRequest();
-    xhr.onload = function() {
-        next_task(); //move on to next task
+    xhr.onloadend = function() {
+        next_task(); //move on to next task - onloadend also fires on error/timeout so participants can't get stuck
     };
     xhr.open('POST', 'https://users.sussex.ac.uk/mel29/survey/survey.php/', true);
+    xhr.timeout = 10000; //ms - stops a hung request blocking onloadend
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send(json_data);
 }
