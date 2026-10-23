@@ -95,7 +95,28 @@ def mirror_zenodo(token, draft_id, raw_dir):
             sys.exit(f'Checksum mismatch downloading {name} from Zenodo - try again later')
         partial.replace(local)
         downloaded += 1
-    return downloaded, unchanged
+    # Exact mirror: drop local files no longer in the draft (e.g. test files deleted there, or loose files DataPipe
+    # has since bundled into a zip - those are in the zip)
+    remote = {Path(e.get('filename') or e.get('key')).name for e in deposition.get('files', [])}
+    removed = 0
+    for local in raw_dir.iterdir():
+        if local.is_file() and local.name not in remote:
+            local.unlink()
+            removed += 1
+    return downloaded, unchanged, removed
+
+
+def rebuild(folder):
+    """An empty folder.new to build into; swap() then replaces folder with it, so outputs never keep stale files."""
+    new = folder.with_name(folder.name + '.new')
+    shutil.rmtree(new, ignore_errors=True)
+    new.mkdir(parents=True)
+    return new
+
+
+def swap(new, folder):
+    shutil.rmtree(folder, ignore_errors=True)
+    new.rename(folder)
 
 
 def pull_sussex(tasks_dir):
@@ -135,14 +156,15 @@ def main():
         sys.exit("PHP isn't on the PATH - it's needed to run the study's own checks")
 
     root = args.local.expanduser().resolve()
-    raw, checked_dir, tasks, data, conflicts = (root / d for d in
-                                                ('zenodo_raw', 'zenodo_checked', 'sussex_tasks', 'gfactor_data', 'conflicts'))
-    for d in (raw, checked_dir, data, conflicts):
-        d.mkdir(parents=True, exist_ok=True)
+    raw, checked_final, tasks, data_final, conflicts_final = (
+        root / d for d in ('zenodo_raw', 'zenodo_checked', 'sussex_tasks', 'gfactor_data', 'conflicts'))
+    raw.mkdir(parents=True, exist_ok=True)
+    # Everything except the two mirrors is rebuilt each run, then swapped in at the end
+    checked_dir, data, conflicts = rebuild(checked_final), rebuild(data_final), rebuild(conflicts_final)
 
     # 1-2. Zenodo -> local, then the study's own checks
-    downloaded, unchanged = mirror_zenodo(settings['ZENODO_TOKEN'], settings['ZENODO_DRAFT_ID'], raw)
-    print(f'Zenodo: {downloaded} file(s) downloaded, {unchanged} unchanged')
+    downloaded, unchanged, removed = mirror_zenodo(settings['ZENODO_TOKEN'], settings['ZENODO_DRAFT_ID'], raw)
+    print(f'Zenodo: {downloaded} file(s) downloaded, {unchanged} unchanged, {removed} no longer in the draft')
     checked, rejected, ignored = check_files(raw, checked_dir)
     print(f'Checked: {len(checked)} passed, {len(rejected)} rejected, {len(ignored)} ignored (not study files)')
     for name, reason in rejected:
@@ -162,7 +184,7 @@ def main():
                 shutil.copy2(path, conflicts / path.name)
                 conflicted += 1
         if conflicted:
-            print(f'  {conflicted} file(s) differ from the server copy - left alone, Zenodo versions in {conflicts}')
+            print(f'  {conflicted} file(s) differ from the server copy - left alone, Zenodo versions in {conflicts_final}')
         if to_upload and args.dry_run:
             print(f'  dry run: would copy {len(to_upload)} new file(s) to the server')
         elif to_upload:
@@ -182,7 +204,9 @@ def main():
     sources += [path for path in checked if not (tasks / path.name).exists()]
     for path in sources:
         shutil.copy2(path, data / path.name)
-    print(f'Local: {len(list(data.glob("*.json")))} file(s) in {data}')
+    for new, final in ((checked_dir, checked_final), (data, data_final), (conflicts, conflicts_final)):
+        swap(new, final)
+    print(f'Local: {len(list(data_final.glob("*.json")))} file(s) in {data_final}')
     sys.exit(0 if server_ok else 2)
 
 
