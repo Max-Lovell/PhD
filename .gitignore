@@ -1,2 +1,5 @@
 *email_reference.csv
 sanitise_emails.R
+# Python bytecode
+__pycache__/
+*.pyc
