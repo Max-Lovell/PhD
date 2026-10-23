@@ -1,17 +1,19 @@
 """
-Check g-factor study files collected through DataPipe (Google Drive) and upload them to the Sussex server.
+Check g-factor study files collected through DataPipe, using the study's own PHP checks.
 
-While the study runs from GitHub Pages, each task saves to DataPipe instead of the Sussex PHP scripts (see
-methods/save.js). This script runs every file through that task's original PHP script via run_php.php, so what ends
-up in /its/home/mel29/gfactor/tasks is exactly what the PHP would have written: same checks, same format, same
-{id}_{task}.json names. credit_report_gfactor.py and the analysis need no changes.
+While the study runs from GitHub Pages, each task saves to DataPipe (see methods/save.js), which stores the files in
+Zenodo or Google Drive. This script runs every file through that task's original PHP script via run_php.php, so the
+checked files are exactly what the Sussex PHP would have written: same checks, same format, same {id}_{task}.json
+names. credit_report_gfactor.py reads them with --no-download --json-dir <out-dir>.
 
 Usage:
-  python3 import_datapipe.py ~/Downloads/gfactor             # check only: reports what would be uploaded
-  python3 import_datapipe.py ~/Downloads/gfactor --upload    # also copies the new files to the server
+  python3 import_datapipe.py ~/Downloads/gfactor --out-dir ~/gfactor_checked            # check into a folder
+  python3 import_datapipe.py ~/Downloads/gfactor --out-dir ~/gfactor_checked --upload   # also copy new files to Sussex
 
-The input is the DataPipe experiment folder downloaded from Google Drive and unzipped (subfolders are fine).
-Needs PHP on the PATH (e.g. from Herd) and SSH key access to unix.sussex.ac.uk.
+The input is a folder of files downloaded from the DataPipe experiment's storage: loose .json files and/or the zip
+archives DataPipe makes on Zenodo (it bundles older sessions once a record nears Zenodo's 100-file limit). Subfolders
+are fine, and a file that appears both loose and in a zip is only checked once. Needs PHP on the PATH (e.g. from
+Herd); --upload also needs SSH key access to unix.sussex.ac.uk.
 """
 import argparse
 import json
@@ -21,6 +23,8 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import zipfile
+from collections import defaultdict
 from pathlib import Path
 
 SSH_HOST = 'mel29@unix.sussex.ac.uk'
@@ -61,11 +65,28 @@ def list_server_files():
     return set(result.stdout.split())
 
 
+def collect(datapipe_dir):
+    """{file name: [contents, ...]} for every .json file in the download, loose or inside DataPipe's zip archives."""
+    found = defaultdict(list)
+    for path in sorted(datapipe_dir.rglob('*')):
+        if not path.is_file():
+            continue
+        if path.suffix == '.json':
+            found[path.name].append(path.read_bytes())
+        elif path.suffix == '.zip':
+            with zipfile.ZipFile(path) as archive:
+                for member in archive.infolist():
+                    name = Path(member.filename).name  # only the name, whatever folders the archive holds
+                    if not member.is_dir() and name.endswith('.json'):
+                        found[name].append(archive.read(member))
+    return found
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument('datapipe_dir', type=Path, help='unzipped DataPipe folder downloaded from Google Drive')
-    parser.add_argument('--upload', action='store_true', help='copy the checked, new files to the Sussex server')
-    parser.add_argument('--out-dir', type=Path, help='keep the checked files here (default: a temporary folder)')
+    parser.add_argument('datapipe_dir', type=Path, help='folder of files downloaded from Zenodo or Google Drive')
+    parser.add_argument('--out-dir', type=Path, help='put the checked files here (default: a temporary folder)')
+    parser.add_argument('--upload', action='store_true', help='also copy checked files not yet on Sussex to the server')
     args = parser.parse_args()
 
     if not args.datapipe_dir.is_dir():
@@ -74,49 +95,46 @@ def main():
         sys.exit("PHP isn't on the PATH - it's needed to run the study's own checks (methods/*/*.php)")
     out_dir = (args.out_dir or Path(tempfile.mkdtemp(prefix='gfactor_import_'))).resolve()
     out_dir.mkdir(parents=True, exist_ok=True)
-    on_server = list_server_files()
 
-    new, already_on_server, rejected, ignored, seen = [], [], [], [], set()
-    for path in sorted(args.datapipe_dir.rglob('*.json')):
-        match = FILE_RE.match(path.name)
+    checked, rejected, ignored = [], [], []
+    for name, copies in sorted(collect(args.datapipe_dir).items()):
+        match = FILE_RE.match(name)
         if not match:
-            ignored.append(path.name)  # e.g. DataPipe metadata files
+            ignored.append(name)  # e.g. DataPipe metadata files
             continue
-        if path.name in seen:
-            rejected.append((path.name, f'duplicate name ({path})'))
+        if len(set(copies)) > 1:
+            rejected.append((name, f'{len(copies)} different versions in the download - compare them by hand'))
             continue
-        seen.add(path.name)
         try:
-            exp_data = json.loads(path.read_text(encoding='utf-8'))
+            exp_data = json.loads(copies[0].decode('utf-8'))
         except (json.JSONDecodeError, UnicodeDecodeError) as e:
-            rejected.append((path.name, f'not valid JSON: {e}'))
+            rejected.append((name, f'not valid JSON: {e}'))
             continue
-        checked, reason = run_php(match[2], path.stem, exp_data, out_dir)
+        path, reason = run_php(match[2], name[:-len('.json')], exp_data, out_dir)
         if reason:
-            rejected.append((path.name, reason))
-        elif path.name in on_server:
-            already_on_server.append(path.name)
+            rejected.append((name, reason))
         else:
-            new.append(checked)
+            checked.append(path)
 
-    print(f'Checked files are in {out_dir}')
-    print(f'{len(new)} new file(s) passed the checks')
-    if already_on_server:
-        print(f'\n{len(already_on_server)} already on the server, not overwritten (compare by hand if needed):')
-        print('  ' + '\n  '.join(already_on_server))
+    print(f'{len(checked)} file(s) passed the checks and are in {out_dir}')
     if rejected:
-        print(f'\n{len(rejected)} rejected (not uploaded):')
+        print(f'\n{len(rejected)} rejected:')
         print('\n'.join(f'  {name}: {reason}' for name, reason in rejected))
     if ignored:
         print(f'\nIgnored {len(ignored)} file(s) not named {{id}}_{{task}}.json: {", ".join(ignored)}')
 
     if not args.upload:
-        if new:
-            print('\nCheck only - run again with --upload to copy the new files to the server.')
+        print(f'\nFor credits: credit_report_gfactor.py --no-download --json-dir {out_dir}')
         return
+    on_server = list_server_files()
+    new = [path for path in checked if path.name not in on_server]
+    already = sorted(path.name for path in checked if path.name in on_server)
+    if already:
+        print(f'\n{len(already)} already on the server, not overwritten (compare by hand if needed):')
+        print('  ' + '\n  '.join(already))
     if new:
         subprocess.run(['scp', '-q', '-o', 'BatchMode=yes', *map(str, new), f'{SSH_HOST}:{REMOTE_DIR}/'], check=True)
-        print(f'\nUploaded {len(new)} file(s) to {SSH_HOST}:{REMOTE_DIR}')
+    print(f'\nUploaded {len(new)} file(s) to {SSH_HOST}:{REMOTE_DIR}')
 
 
 if __name__ == '__main__':
