@@ -1,7 +1,7 @@
 // Shared by every task. On the Sussex server data goes to that task's PHP script as before. Anywhere else
-// (e.g. GitHub Pages) it goes to DataPipe, which stores each file in Google Drive; ../import_datapipe/import_datapipe.py
-// later runs the same PHP checks on those files and uploads them to the Sussex server.
-const DATAPIPE_EXPERIMENT_ID = 'REPLACE_WITH_DATAPIPE_EXPERIMENT_ID' //from the DataPipe experiment dashboard
+// (e.g. GitHub Pages) it goes to DataPipe, which stores each file in the study's Zenodo draft record;
+// ../import_datapipe/import_datapipe.py later runs the same PHP checks on the downloaded files.
+const DATAPIPE_EXPERIMENT_ID = 'kF37MjUSvYs9' //from the DataPipe experiment dashboard (Zenodo)
 const ON_SUSSEX = window.location.hostname === 'users.sussex.ac.uk'
 
 function postData(php_url, file_name, exp_data, next_task){
