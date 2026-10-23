@@ -82,22 +82,11 @@ def collect(datapipe_dir):
     return found
 
 
-def main():
-    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument('datapipe_dir', type=Path, help='folder of files downloaded from Zenodo or Google Drive')
-    parser.add_argument('--out-dir', type=Path, help='put the checked files here (default: a temporary folder)')
-    parser.add_argument('--upload', action='store_true', help='also copy checked files not yet on Sussex to the server')
-    args = parser.parse_args()
-
-    if not args.datapipe_dir.is_dir():
-        sys.exit(f'Not a folder: {args.datapipe_dir}')
-    if not shutil.which('php'):
-        sys.exit("PHP isn't on the PATH - it's needed to run the study's own checks (methods/*/*.php)")
-    out_dir = (args.out_dir or Path(tempfile.mkdtemp(prefix='gfactor_import_'))).resolve()
-    out_dir.mkdir(parents=True, exist_ok=True)
-
+def check_files(datapipe_dir, out_dir):
+    """Run every study file in a DataPipe download through its task's PHP into out_dir.
+    Returns (paths written, [(name, reason rejected)], [names ignored])."""
     checked, rejected, ignored = [], [], []
-    for name, copies in sorted(collect(args.datapipe_dir).items()):
+    for name, copies in sorted(collect(datapipe_dir).items()):
         match = FILE_RE.match(name)
         if not match:
             ignored.append(name)  # e.g. DataPipe metadata files
@@ -115,6 +104,23 @@ def main():
             rejected.append((name, reason))
         else:
             checked.append(path)
+    return checked, rejected, ignored
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    parser.add_argument('datapipe_dir', type=Path, help='folder of files downloaded from Zenodo or Google Drive')
+    parser.add_argument('--out-dir', type=Path, help='put the checked files here (default: a temporary folder)')
+    parser.add_argument('--upload', action='store_true', help='also copy checked files not yet on Sussex to the server')
+    args = parser.parse_args()
+
+    if not args.datapipe_dir.is_dir():
+        sys.exit(f'Not a folder: {args.datapipe_dir}')
+    if not shutil.which('php'):
+        sys.exit("PHP isn't on the PATH - it's needed to run the study's own checks (methods/*/*.php)")
+    out_dir = (args.out_dir or Path(tempfile.mkdtemp(prefix='gfactor_import_'))).resolve()
+    out_dir.mkdir(parents=True, exist_ok=True)
+    checked, rejected, ignored = check_files(args.datapipe_dir, out_dir)
 
     print(f'{len(checked)} file(s) passed the checks and are in {out_dir}')
     if rejected:

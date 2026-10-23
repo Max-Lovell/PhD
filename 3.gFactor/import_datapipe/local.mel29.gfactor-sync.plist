@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- Runs gfactor_sync.py every day at 07:45 (or when the Mac next wakes). Output is appended to ~/gfactor/sync.log.
+     Install:   mkdir -p ~/gfactor && cp local.mel29.gfactor-sync.plist ~/Library/LaunchAgents/ && launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/local.mel29.gfactor-sync.plist
+     Run now:   launchctl kickstart gui/$(id -u)/local.mel29.gfactor-sync
+     Remove:    launchctl bootout gui/$(id -u)/local.mel29.gfactor-sync -->
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>local.mel29.gfactor-sync</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>/Users/mel29/Code/PhD-relaunch/.venv/bin/python</string>
+        <string>/Users/mel29/Code/PhD/3.gFactor/import_datapipe/gfactor_sync.py</string>
+    </array>
+    <key>EnvironmentVariables</key>
+    <dict>
+        <!-- launchd jobs get a bare PATH; PHP comes from Herd -->
+        <key>PATH</key>
+        <string>/Users/mel29/.config/herd-lite/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+    </dict>
+    <key>StartCalendarInterval</key>
+    <dict>
+        <key>Hour</key>
+        <integer>7</integer>
+        <key>Minute</key>
+        <integer>45</integer>
+    </dict>
+    <key>StandardOutPath</key>
+    <string>/Users/mel29/gfactor/sync.log</string>
+    <key>StandardErrorPath</key>
+    <string>/Users/mel29/gfactor/sync.log</string>
+</dict>
+</plist>
